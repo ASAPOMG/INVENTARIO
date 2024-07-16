@@ -1,0 +1,11 @@
+{% extends 'inventory/base.html' %}
+
+{% block title %}Logged Out{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Sesión Cerrada</h2>
+    <p>Has cerrado sesión exitosamente.</p>
+    <a href="{% url 'login' %}" class="btn btn-primary">Iniciar Sesión</a>
+</div>
+{% endblock %}

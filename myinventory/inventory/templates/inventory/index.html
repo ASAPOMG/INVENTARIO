@@ -1,0 +1,75 @@
+{% extends 'inventory/base.html' %}
+
+{% block title %}Inventario - Productos{% endblock %}
+
+{% block content %}
+<h1 class="mt-5">Productos</h1>
+<form method="GET" action="{% url 'inventory:index' %}" class="mb-3">
+    <input type="text" name="q" placeholder="Buscar productos" class="form-control mb-2" value="{{ request.GET.q }}">
+</form>
+
+{% if productos_bajo_stock %}
+<div class="alert alert-warning">
+    <strong>Atención:</strong> Los siguientes productos tienen stock bajo:
+    <ul>
+        {% for producto in productos_bajo_stock %}
+        <li>{{ producto.nombre }} ({{ producto.cantidad }} unidades, mínimo {{ producto.stock_minimo }} unidades)</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}
+
+<ul class="list-group">
+    {% for producto in page_obj %}
+    <li class="list-group-item">
+        <a href="{% url 'inventory:detail' producto.id %}">{{ producto.nombre }}</a>
+        - {{ producto.cantidad }} unidades - ${{ producto.precio }} por unidad
+        <span class="float-right">
+            <a href="{% url 'inventory:edit_producto' producto.id %}" class="btn btn-primary btn-sm">Editar</a>
+            <a href="{% url 'inventory:delete_producto' producto.id %}" class="btn btn-danger btn-sm">Eliminar</a>
+        </span>
+    </li>
+    {% endfor %}
+</ul>
+
+<nav aria-label="Page navigation" class="mt-4">
+    <ul class="pagination justify-content-center">
+        {% if page_obj.has_previous %}
+        <li class="page-item">
+            <a class="page-link" href="?page=1&q={{ request.GET.q }}">&laquo; Primero</a>
+        </li>
+        <li class="page-item">
+            <a class="page-link" href="?page={{ page_obj.previous_page_number }}&q={{ request.GET.q }}">Anterior</a>
+        </li>
+        {% endif %}
+        
+        {% for num in page_obj.paginator.page_range %}
+        {% if page_obj.number == num %}
+        <li class="page-item active">
+            <span class="page-link">{{ num }}</span>
+        </li>
+        {% elif num > page_obj.number|add:-3 and num < page_obj.number|add:3 %}
+        <li class="page-item">
+            <a class="page-link" href="?page={{ num }}&q={{ request.GET.q }}">{{ num }}</a>
+        </li>
+        {% endif %}
+        {% endfor %}
+        
+        {% if page_obj.has_next %}
+        <li class="page-item">
+            <a class="page-link" href="?page={{ page_obj.next_page_number }}&q={{ request.GET.q }}">Siguiente</a>
+        </li>
+        <li class="page-item">
+            <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}&q={{ request.GET.q }}">Último &raquo;</a>
+        </li>
+        {% endif %}
+    </ul>
+</nav>
+
+<h2 class="mt-4 text-primary font-weight-bold">Valor Total del Inventario: <span style="color: red;">${{ total_valor }}</span></h2>
+
+<a href="{% url 'inventory:generar_reporte' %}" class="btn btn-info mt-3">Generar Reporte PDF</a>
+<a href="{% url 'inventory:generar_reporte_ventas' %}" class="btn btn-warning mt-3">Generar Reporte de Ventas</a>
+<a href="{% url 'inventory:add_producto' %}" class="btn btn-success mt-3">Agregar Nuevo Producto</a>
+<a href="{% url 'inventory:registrar_transaccion' %}" class="btn btn-info mt-3">Registrar Transacción</a>
+{% endblock %}

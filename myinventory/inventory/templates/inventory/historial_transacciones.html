@@ -1,0 +1,61 @@
+{% extends 'inventory/base.html' %}
+
+{% block title %}Historial de Transacciones{% endblock %}
+
+{% block content %}
+<h1 class="mt-5">Historial de Transacciones</h1>
+<form method="GET" action="{% url 'inventory:historial_transacciones' %}" class="mb-3">
+    <input type="text" name="q" placeholder="Buscar transacciones" class="form-control mb-2" value="{{ request.GET.q }}">
+    <select name="tipo" class="form-control mb-2">
+        <option value="">Todos los tipos</option>
+        <option value="venta" {% if request.GET.tipo == 'venta' %}selected{% endif %}>Venta</option>
+        <option value="compra" {% if request.GET.tipo == 'compra' %}selected{% endif %}>Compra</option>
+    </select>
+    <button type="submit" class="btn btn-primary">Buscar</button>
+</form>
+
+<ul class="list-group">
+    {% for transaccion in page_obj %}
+    <li class="list-group-item">
+        {{ transaccion.fecha|date:"d M Y H:i" }} - {{ transaccion.tipo }} - {{ transaccion.producto.nombre }} - {{ transaccion.cantidad }}
+    </li>
+    {% endfor %}
+</ul>
+
+<nav aria-label="Page navigation" class="mt-4">
+    <ul class="pagination justify-content-center">
+        {% if page_obj.has_previous %}
+        <li class="page-item">
+            <a class="page-link" href="?page=1&q={{ request.GET.q }}&tipo={{ request.GET.tipo }}">&laquo; Primero</a>
+        </li>
+        <li class="page-item">
+            <a class="page-link" href="?page={{ page_obj.previous_page_number }}&q={{ request.GET.q }}&tipo={{ request.GET.tipo }}">Anterior</a>
+        </li>
+        {% endif %}
+        
+        {% for num in page_obj.paginator.page_range %}
+        {% if page_obj.number == num %}
+        <li class="page-item active">
+            <span class="page-link">{{ num }}</span>
+        </li>
+        {% elif num > page_obj.number|add:-3 and num < page_obj.number|add:3 %}
+        <li class="page-item">
+            <a class="page-link" href="?page={{ num }}&q={{ request.GET.q }}&tipo={{ request.GET.tipo }}">{{ num }}</a>
+        </li>
+        {% endif %}
+        {% endfor %}
+        
+        {% if page_obj.has_next %}
+        <li class="page-item">
+            <a class="page-link" href="?page={{ page_obj.next_page_number }}&q={{ request.GET.q }}&tipo={{ request.GET.tipo }}">Siguiente</a>
+        </li>
+        <li class="page-item">
+            <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}&q={{ request.GET.q }}&tipo={{ request.GET.tipo }}">Último &raquo;</a>
+        </li>
+        {% endif %}
+    </ul>
+</nav>
+
+<a href="{% url 'inventory:generar_reporte_transacciones' %}" class="btn btn-info mt-3">Generar Reporte PDF</a>
+<a href="{% url 'inventory:index' %}" class="btn btn-secondary mt-3">Volver al inventario</a>
+{% endblock %}

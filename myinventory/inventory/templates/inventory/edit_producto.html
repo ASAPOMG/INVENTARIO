@@ -1,0 +1,43 @@
+{% extends 'inventory/base.html' %}
+
+{% block title %}Editar Producto{% endblock %}
+
+{% block content %}
+<div class="card mt-5">
+    <div class="card-header">
+        <h1>Editar Producto</h1>
+    </div>
+    <div class="card-body">
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                {{ form.nombre.label_tag }}
+                {{ form.nombre }}
+            </div>
+            <div class="form-group">
+                {{ form.cantidad.label_tag }}
+                {{ form.cantidad }}
+            </div>
+            <div class="form-group">
+                {{ form.precio.label_tag }}
+                {{ form.precio }}
+            </div>
+            <div class="form-group">
+                {{ form.stock_minimo.label_tag }}
+                {{ form.stock_minimo }}
+            </div>
+            <div class="form-group">
+                {{ form.descripcion.label_tag }}
+                {{ form.descripcion }}
+            </div>
+            <div class="form-group">
+                {{ form.categoria.label_tag }}
+                {{ form.categoria }}
+            </div>
+            <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+        </form>
+        <a href="{% url 'inventory:index' %}" class="btn btn-secondary mt-3">Volver al inventario</a>
+    </div>
+</div>
+{% endblock %}
+

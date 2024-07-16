@@ -1,0 +1,21 @@
+{% extends 'inventory/base.html' %}
+
+{% block title %}{{ producto.nombre }}{% endblock %}
+
+{% block content %}
+<div class="card mt-5">
+    <div class="card-header">
+        <h1>{{ producto.nombre }}</h1>
+    </div>
+    <div class="card-body">
+        <p><strong>Cantidad:</strong> {{ producto.cantidad }}</p>
+        <p><strong>Precio:</strong> ${{ producto.precio }}</p>
+        <p><strong>Stock Mínimo:</strong> {{ producto.stock_minimo }}</p>
+        <p><strong>Descripción:</strong> {{ producto.descripcion }}</p>
+        <p><strong>Categoría:</strong> {{ producto.categoria }}</p>
+        <a href="{% url 'inventory:index' %}" class="btn btn-secondary">Volver al inventario</a>
+        <a href="{% url 'inventory:edit_producto' producto.id %}" class="btn btn-primary">Editar Producto</a>
+        <a href="{% url 'inventory:delete_producto' producto.id %}" class="btn btn-danger">Eliminar Producto</a>
+    </div>
+</div>
+{% endblock %}

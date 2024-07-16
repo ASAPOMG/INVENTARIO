@@ -1,0 +1,12 @@
+{% extends 'inventory/base.html' %}
+
+{% block title %}Generar Reportes{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1>Generar Reportes</h1>
+    <a href="{% url 'inventory:generar_reporte' %}" class="btn btn-primary mt-3">Generar Reporte de Inventario</a>
+    <a href="{% url 'inventory:generar_reporte_transacciones' %}" class="btn btn-primary mt-3">Generar Reporte de Transacciones</a>
+    <a href="{% url 'inventory:generar_reporte_ventas' %}" class="btn btn-primary mt-3">Generar Reporte de Ventas</a>
+</div>
+{% endblock %}

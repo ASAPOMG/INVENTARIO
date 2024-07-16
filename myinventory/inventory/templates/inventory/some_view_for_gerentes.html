@@ -1,0 +1,28 @@
+{% extends 'inventory/base.html' %}
+
+{% block title %}Vista para Gerentes{% endblock %}
+
+{% block content %}
+<h1>{{ message }}</h1>
+<p>Total valor del inventario: ${{ total_valor }}</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Cantidad</th>
+            <th>Precio</th>
+            <th>Valor Total</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for producto in productos %}
+        <tr>
+            <td>{{ producto.nombre }}</td>
+            <td>{{ producto.cantidad }}</td>
+            <td>${{ producto.precio }}</td>
+            <td>${{ producto.cantidad * producto.precio }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

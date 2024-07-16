@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}Inventario{% endblock %}</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+    <style>
+        body {
+            margin-top: 0;
+            padding-top: 0;
+        }
+        .navbar {
+            margin-bottom: 0;
+        }
+        .navbar-nav .nav-item {
+            margin-right: 10px;
+        }
+        .navbar-text {
+            margin-left: auto;
+        }
+        .btn-logout {
+            padding: 5px 10px;
+            background-color: #dc3545 !important;
+            color: white !important;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .btn-logout:hover {
+            background-color: #c82333 !important;
+            color: white !important;
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="{% url 'inventory:index' %}">Inventario</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'inventory:add_producto' %}">Agregar Producto</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'inventory:registrar_transaccion' %}">Registrar Transacción</a>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'inventory:add_categoria' %}">Agregar Categoría</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'inventory:listar_proveedores' %}">Proveedores</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'inventory:lista_usuarios' %}">Lista de Usuarios</a>
+            </li>
+        </ul>
+        <span class="navbar-text">
+            {% if user.is_authenticated %}
+                Bienvenido, {{ user.username }} |
+                <form method="post" action="{% url 'logout' %}" style="display:inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="btn-logout">Logout</button>
+                </form>
+            {% else %}
+                <a class="nav-link" href="{% url 'login' %}">Login</a>
+            {% endif %}
+        </span>
+    </div>
+</nav>
+
+<div class="container">
+    {% block content %}
+    {% endblock %}
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

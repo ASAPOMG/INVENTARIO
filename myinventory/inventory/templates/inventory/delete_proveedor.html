@@ -1,0 +1,19 @@
+{% extends 'inventory/base.html' %}
+
+{% block title %}Eliminar Proveedor{% endblock %}
+
+{% block content %}
+<div class="card mt-5">
+    <div class="card-header">
+        <h1>Eliminar Proveedor</h1>
+    </div>
+    <div class="card-body">
+        <p>¿Estás seguro de que deseas eliminar a {{ proveedor.nombre }}?</p>
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">Eliminar</button>
+            <a href="{% url 'inventory:lista_proveedores' %}" class="btn btn-secondary">Cancelar</a>
+        </form>
+    </div>
+</div>
+{% endblock %}

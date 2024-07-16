@@ -1,0 +1,85 @@
+/* custom.css */
+
+/* Ejemplo de estilo personalizado */
+body {
+    background-color: #f8f9fa; /* Color de fondo claro */
+}
+
+.navbar {
+    background-color: #343a40 !important; /* Fondo oscuro para la barra de navegación */
+}
+
+.navbar-brand,
+.nav-link {
+    color: #ffffff !important; /* Texto blanco para los enlaces en la barra de navegación */
+}
+
+.nav-link:hover {
+    color: #d3d3d3 !important; /* Color del texto al pasar el cursor */
+}
+
+/* Botón de Logout */
+.btn-logout {
+    padding: 5px 10px;
+    background-color: #dc3545 !important;
+    color: white !important;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.btn-logout:hover {
+    background-color: #c82333 !important;
+    color: white !important;
+}
+
+/* Estilo para el mensaje de Bienvenido */
+.navbar-text {
+    color: #ffc107 !important; /* Color amarillo para destacar sobre el fondo oscuro */
+    font-weight: bold; /* Hacer el texto en negrita */
+}
+/* custom.css */
+
+body {
+    background-color: #f8f9fa;
+}
+
+.card {
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+    border-radius: 10px 10px 0 0;
+}
+
+.form-control {
+    border-radius: 5px;
+    border: 1px solid #ced4da;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+.card-footer {
+    background-color: #ffffff;
+    border-radius: 0 0 10px 10px;
+    font-size: 0.9em;
+}
+
+.card-footer a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.card-footer a:hover {
+    text-decoration: underline;
+}

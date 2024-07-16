@@ -1,0 +1,28 @@
+version: '3.9'
+
+services:
+  db:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: inventario
+      POSTGRES_USER: gael
+      POSTGRES_PASSWORD: bebopicoso
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  web:
+    build: .
+    command: bash -c "./wait-for-it.sh db:5432 -- python manage.py migrate && gunicorn --bind 0.0.0.0:8000 myinventory.wsgi:application"
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    environment:
+      - DATABASE_URL=postgres://gael:bebopicoso@db:5432/inventario
+
+volumes:
+  postgres_data:

@@ -1,0 +1,40 @@
+{% extends 'inventory/base.html' %}
+
+{% block title %}Registrar Transacción{% endblock %}
+
+{% block content %}
+<div class="card mt-5">
+    <div class="card-header">
+        <h1>Registrar Transacción</h1>
+    </div>
+    <div class="card-body">
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                {{ form.tipo.label_tag }}
+                {{ form.tipo }}
+            </div>
+            <div class="form-group">
+                {{ form.cantidad.label_tag }}
+                {{ form.cantidad }}
+            </div>
+            <div class="form-group">
+                {{ form.codigo_barras.label_tag }}
+                {{ form.codigo_barras }}
+            </div>
+            <button type="submit" class="btn btn-success">Agregar Producto</button>
+        </form>
+        <h3>Productos en la transacción:</h3>
+        <ul>
+            {% for producto, cantidad in productos %}
+                <li>{{ producto.nombre }} - Cantidad: {{ cantidad }}</li>
+            {% endfor %}
+        </ul>
+        <form method="post" action="{% url 'inventory:finalizar_transaccion' %}">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-primary mt-3">Finalizar Transacción</button>
+        </form>
+        <a href="{% url 'inventory:historial_transacciones' %}" class="btn btn-secondary mt-3">Historial de Transacciones</a>
+    </div>
+</div>
+{% endblock %}

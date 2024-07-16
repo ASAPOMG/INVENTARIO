@@ -1,0 +1,33 @@
+{% extends 'inventory/base.html' %}
+
+{% block title %}Proveedores{% endblock %}
+
+{% block content %}
+<h1>Proveedores</h1>
+<a href="{% url 'inventory:add_proveedor' %}" class="btn btn-primary">Agregar Proveedor</a>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Dirección</th>
+            <th>Teléfono</th>
+            <th>Email</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for proveedor in proveedores %}
+        <tr>
+            <td>{{ proveedor.nombre }}</td>
+            <td>{{ proveedor.direccion }}</td>
+            <td>{{ proveedor.telefono }}</td>
+            <td>{{ proveedor.email }}</td>
+            <td>
+                <a href="{% url 'inventory:editar_proveedor' proveedor.id %}" class="btn btn-secondary">Editar</a>
+                <a href="{% url 'inventory:eliminar_proveedor' proveedor.id %}" class="btn btn-danger">Eliminar</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

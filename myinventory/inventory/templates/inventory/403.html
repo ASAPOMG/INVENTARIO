@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Acceso Denegado</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="alert alert-danger" role="alert">
+            <h4 class="alert-heading">403 - Acceso Denegado</h4>
+            <p>No tienes permiso para acceder a esta página.</p>
+            <hr>
+            <p class="mb-0">Por favor, contacta al administrador si crees que esto es un error.</p>
+            <a href="{% url 'inventory:index' %}" class="btn btn-primary mt-3">Volver al inicio</a>
+        </div>
+    </div>
+</body>
+</html>

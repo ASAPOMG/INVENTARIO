@@ -1,0 +1,22 @@
+{% extends 'inventory/base.html' %}
+
+{% block title %}Agregar Categoría{% endblock %}
+
+{% block content %}
+<div class="card mt-5">
+    <div class="card-header">
+        <h1>Agregar Categoría</h1>
+    </div>
+    <div class="card-body">
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                {{ form.nombre.label_tag }}
+                {{ form.nombre }}
+            </div>
+            <button type="submit" class="btn btn-success">Agregar Categoría</button>
+        </form>
+        <a href="{% url 'inventory:add_producto' %}" class="btn btn-secondary mt-3">Volver</a>
+    </div>
+</div>
+{% endblock %}
